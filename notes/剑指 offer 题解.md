@@ -1154,11 +1154,11 @@ public ListNode FindKthToTail(ListNode head, int k) {
 
 ## 解题思路
 
-使用双指针，一个指针 fast 每次移动两个节点，一个指针 slow 每次移动一个节点。因为存在环，所以两个指针必定相遇在环中的某个节点上。假设相遇点在下图的 z1 位置，此时 fast 移动的节点数为 x+2y+z，slow 为 x+y，由于 fast 速度比 slow 快一倍，因此 x+2y+z=2(x+y)，得到 x=z。
+使用双指针，一个指针 fast 每次移动两个节点，一个指针 slow 每次移动一个节点。因为存在环，所以两个指针必定相遇在环中的某个节点上。假设相遇点在下图的 y6 位置，此时 fast 移动的节点数为 x+2y+z，slow 为 x+y，由于 fast 速度比 slow 快一倍，因此 x+2y+z=2(x+y)，得到 x=z。
 
 在相遇点，slow 要到环的入口点还需要移动 z 个节点，如果让 fast 重新从头开始移动，并且速度变为每次移动一个节点，那么它到环入口点还需要移动 x 个节点。在上面已经推导出 x=z，因此 fast 和 slow 将在环入口点相遇。
 
-<div align="center"> <img src="../pics//2858f8ad-aedb-45a5-a706-e98c96d690fa.jpg" width="600"/> </div><br>
+<div align="center"> <img src="../pics//70fa1f83-dae7-456d-b94b-ce28963b2ba1.png"/> </div><br>
 
 ```java
 public ListNode EntryNodeOfLoop(ListNode pHead) {
@@ -1433,7 +1433,8 @@ public boolean IsPopOrder(int[] pushSequence, int[] popSequence) {
     Stack<Integer> stack = new Stack<>();
     for (int pushIndex = 0, popIndex = 0; pushIndex < n; pushIndex++) {
         stack.push(pushSequence[pushIndex]);
-        while (popIndex < n && stack.peek() == popSequence[popIndex]) {
+        while (popIndex < n && !stack.isEmpty() 
+                && stack.peek() == popSequence[popIndex]) {
             stack.pop();
             popIndex++;
         }
@@ -1578,7 +1579,7 @@ private boolean verify(int[] sequence, int first, int last) {
     int cutIndex = first;
     while (cutIndex < last && sequence[cutIndex] <= rootVal)
         cutIndex++;
-    for (int i = cutIndex + 1; i < last; i++)
+    for (int i = cutIndex; i < last; i++)
         if (sequence[i] < rootVal)
             return false;
     return verify(sequence, first, cutIndex - 1) && verify(sequence, cutIndex, last - 1);
@@ -2244,7 +2245,7 @@ public int GetUglyNumber_Solution(int N) {
 
 ## 题目描述
 
-在一个字符串 中找到第一个只出现一次的字符，并返回它的位置。
+在一个字符串中找到第一个只出现一次的字符，并返回它的位置。
 
 ## 解题思路
 
